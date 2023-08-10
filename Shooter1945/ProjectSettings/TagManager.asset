@@ -6,6 +6,7 @@ TagManager:
   tags:
   - FxTemporaire
   - Wall
+  - Item
   layers:
   - Default
   - TransparentFX
@@ -18,8 +19,8 @@ TagManager:
   - Enemy
   - Item
   - Other
-  - 
-  - 
+  - PlayerBullet
+  - EnemyBullet
   - 
   - 
   - 
