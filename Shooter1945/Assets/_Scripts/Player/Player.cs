@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Mathematics;
@@ -13,11 +14,18 @@ public class Player : GameActor
     [SerializeField]
     private float fireRate = 0.5f;
     [SerializeField]
+    private float shieldTime = 5f;
+    [SerializeField]
     private PlayerModel model;
     [SerializeField]
     private Image hpImage;
+    [SerializeField]
+    GameObject shield;
+    [SerializeField]
+    private Animator shieldAnimator;
 
     private int maxHp;
+    private IEnumerator shieldOff;
 
     // Start is called before the first frame update
     void Start()
@@ -63,6 +71,7 @@ public class Player : GameActor
             {
                 StopCoroutine(fire);
                 fire = null;
+                yield return null;
             }
         }
     }
@@ -78,8 +87,21 @@ public class Player : GameActor
                     SetHP();
                     break;
                 case 1:
+                    model.level++;
                     break;
                 case 2:
+                    shield.SetActive(true);
+                    if (shieldOff != null)
+                    {
+                        if (shieldAnimator.GetCurrentAnimatorStateInfo(0).IsName("Off"))
+                        {
+                            shieldAnimator.Play("Spawn");
+                        }
+                        StopCoroutine(shieldOff);
+                    }
+                    shieldOff = null;
+                    shieldOff = ShieldOff();
+                    StartCoroutine(shieldOff);
                     break;
             }
             return;
@@ -128,9 +150,20 @@ public class Player : GameActor
 
     private void PlayerDeath()
     {
+        StopCoroutine(fire);
         EnemySpawner.PlayerDeath();
         Enemy.PlayerDeath();
         Bullet.PlayerDeath();
         Item.PlayerDeath();
+    }
+
+    private IEnumerator ShieldOff()
+    {
+        yield return new WaitForSeconds(shieldTime - 1f);
+        shieldAnimator.Play("Off");
+        yield return new WaitForSeconds(1f);
+        shield.SetActive(false);
+        StopCoroutine(shieldOff);
+        shieldOff = null;
     }
 }

@@ -209,6 +209,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bullets:
   - {fileID: 2391864061564353264, guid: 70147a3b0a9ec464791a6dbaf75a3139, type: 3}
+  - {fileID: 1259865673663102, guid: 8b227e0429c621940acb9e2e8d18d12f, type: 3}
+  level: 0
   gunPos:
   - {fileID: 9047184585367607466}
   - {fileID: 3654462275746928907}
