@@ -98,7 +98,7 @@ MonoBehaviour:
   damage: 1
   rb: {fileID: 6998108843521777318}
   deadFx: {fileID: 6823302871133167919, guid: 7cb78c66258c8004ca4230883a23ada0, type: 3}
-  startSound: {fileID: 8300000, guid: fc582df3572b64d279888946675505af, type: 3}
+  startSound: {fileID: 8300000, guid: a513ac55498f0f445816133c0389f62f, type: 3}
 --- !u!1 &2418474453877521326
 GameObject:
   m_ObjectHideFlags: 0
