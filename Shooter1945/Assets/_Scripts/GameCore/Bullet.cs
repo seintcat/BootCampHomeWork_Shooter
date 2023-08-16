@@ -10,6 +10,8 @@ public class Bullet : MonoBehaviour
     protected Rigidbody rb;
     [SerializeField]
     protected GameObject deadFx;
+    [SerializeField]
+    protected AudioClip startSound;
 
     public static void PlayerDeath()
     {
@@ -23,7 +25,6 @@ public class Bullet : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
     }
 
     // Update is called once per frame

@@ -8,6 +8,10 @@ public class SimpleEnemyBullet : Bullet
     void Start()
     {
         rb.velocity = transform.forward * 2;
+        if (startSound != null)
+        {
+            AudioManager.PlayOneShot(startSound);
+        }
     }
 
     // Update is called once per frame

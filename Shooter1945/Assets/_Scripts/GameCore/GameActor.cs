@@ -19,6 +19,14 @@ public class GameActor : MonoBehaviour
     protected List<GameObject> collisionOthers;
     private IEnumerator immortalTime;
 
+    public bool dead
+    {
+        get 
+        { 
+            return hp < 1; 
+        }
+    }
+
     protected virtual void Init()
     {
         collisionOthers = new List<GameObject>();
@@ -49,7 +57,10 @@ public class GameActor : MonoBehaviour
 
     protected void Death()
     {
-        StopCoroutine(fire);
+        if (fire != null)
+        {
+            StopCoroutine(fire);
+        }
         StopCoroutine(immortalTime);
         foreach (Collider col in GetComponentsInChildren<Collider>())
         {

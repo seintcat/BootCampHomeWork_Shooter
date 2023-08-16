@@ -50,6 +50,7 @@ MonoBehaviour:
   damage: 1
   rb: {fileID: 2359479101036895529}
   deadFx: {fileID: 358637981425055526, guid: 8eb503696b886e04faff8fc0f480d473, type: 3}
+  startSound: {fileID: 0}
   model: {fileID: 1423079183102715402}
 --- !u!65 &1375220197977739392
 BoxCollider:

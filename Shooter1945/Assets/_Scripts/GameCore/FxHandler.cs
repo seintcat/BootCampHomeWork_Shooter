@@ -6,10 +6,18 @@ public class FxHandler : MonoBehaviour
 {
     [SerializeField]
     private float time;
+    [SerializeField]
+    private AudioClip audioClip;
+
+    public static bool playerDeath = false;
 
     // Start is called before the first frame update
     void Start()
     {
+        if (!playerDeath && audioClip != null)
+        {
+            AudioManager.PlayOneShot(audioClip);
+        }
         Destroy(gameObject, time);
     }
 

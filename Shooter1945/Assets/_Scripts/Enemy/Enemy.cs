@@ -11,6 +11,10 @@ public abstract class Enemy : GameActor
     protected List<Transform> firePos;
     [SerializeField]
     protected GameObject bullet;
+    [SerializeField]
+    protected int hitScore;
+    [SerializeField]
+    protected int deathScore;
 
     public static void PlayerDeath()
     {
@@ -44,6 +48,10 @@ public abstract class Enemy : GameActor
 
     private void OnTriggerExit(Collider other)
     {
-        WallOutDestroyer.WallTriggerExit(other, gameObject);
+        if(other.gameObject.tag == "Wall")
+        {
+            WallOutDestroyer.WallTriggerExit(other, gameObject);
+            return;
+        }
     }
 }

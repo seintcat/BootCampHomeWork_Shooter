@@ -148,4 +148,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 1
   rb: {fileID: -7201698386930031032}
-  deadFx: {fileID: 2944396702758532163, guid: 1d9a0d076ab99664da1de10230e4e358, type: 3}
+  deadFx: {fileID: 2944396702758532163, guid: bcc05b499f04d9846888f6471248ce2e, type: 3}
+  startSound: {fileID: 8300000, guid: e99998c4da54a1a4e94b6f293cde27c1, type: 3}

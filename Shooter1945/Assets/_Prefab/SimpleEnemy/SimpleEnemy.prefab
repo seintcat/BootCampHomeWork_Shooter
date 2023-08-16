@@ -99,13 +99,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hp: 3
   rb: {fileID: 6282554028621099882}
-  deadFx: {fileID: 4535006216103734310, guid: 98c4704d0fd7211449bcf5c451095a60, type: 3}
+  deadFx: {fileID: 4535006216103734310, guid: a81e9d64f3fbc964392de929cc4ffbbb, type: 3}
   animator: {fileID: 6170204365736925378}
   deathTime: 1.5
   collisionDamage: 1
   firePos:
   - {fileID: 5197157691557564640}
-  bullet: {fileID: 6923089393911372603, guid: 35f201f143b8353488b7052ac327c69b, type: 3}
+  bullet: {fileID: 6923089393911372603, guid: bcc81050e0690cc48890a78318787ba0, type: 3}
+  hitScore: 10
+  deathScore: 100
   fireMinMax: {x: 3, y: 13}
 --- !u!95 &6170204365736925378
 Animator:

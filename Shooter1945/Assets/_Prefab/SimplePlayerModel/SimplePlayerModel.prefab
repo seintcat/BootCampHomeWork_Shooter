@@ -129,7 +129,7 @@ GameObject:
   - component: {fileID: 8068341298287325084}
   m_Layer: 7
   m_Name: SimplePlayerModel
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -208,8 +208,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bullets:
-  - {fileID: 2391864061564353264, guid: 70147a3b0a9ec464791a6dbaf75a3139, type: 3}
+  - {fileID: 2391864061564353264, guid: 4b83b64a7b126344c894c8c525b493c7, type: 3}
   - {fileID: 1259865673663102, guid: 8b227e0429c621940acb9e2e8d18d12f, type: 3}
+  - {fileID: 1336385348731362, guid: 1f39af64e00dcce42a48f93c60e01a40, type: 3}
   level: 0
   gunPos:
   - {fileID: 9047184585367607466}

@@ -30,9 +30,10 @@ public class PlayerModel1 : PlayerModel
                 _bullet.Rotate(new Vector3(0, -45, 0), Space.Self);
                 _bullet = SimpleBulletMake(0, 2);
                 _bullet.Rotate(new Vector3(0, 45, 0), Space.Self);
-                break; 
-            //case 2:
-            //    break;
+                break;
+            case 2:
+                SimpleBulletMake(2, 0);
+                break;
             default:
                 level--;
                 Shoot();

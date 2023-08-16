@@ -14,7 +14,7 @@ public class Player : GameActor
     [SerializeField]
     private float fireRate = 0.5f;
     [SerializeField]
-    private float shieldTime = 5f;
+    private float shieldTime = 10f;
     [SerializeField]
     private PlayerModel model;
     [SerializeField]
@@ -123,13 +123,13 @@ public class Player : GameActor
         collisionOthers.Add(collision.gameObject);
 
         Enemy enemy = collision.gameObject.GetComponent<Enemy>();
-        if (enemy != null)
+        if (enemy != null && shieldOff == null)
         {
             hp -= enemy.collisionDamage;
         }
 
         Bullet bullet = collision.gameObject.GetComponent<Bullet>();
-        if (bullet != null)
+        if (bullet != null && shieldOff == null)
         {
             hp -= bullet.damage;
         }
@@ -150,6 +150,7 @@ public class Player : GameActor
 
     private void PlayerDeath()
     {
+        FxHandler.playerDeath = true;
         StopCoroutine(fire);
         EnemySpawner.PlayerDeath();
         Enemy.PlayerDeath();

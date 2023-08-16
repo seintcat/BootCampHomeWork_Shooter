@@ -41,12 +41,12 @@ public class SimpleEnemy : Enemy
     private void OnCollisionEnter(Collision collision)
     {
         // Checking
-        if(collisionOthers.Exists(x => x.gameObject == collision.gameObject))
+        if (collisionOthers.Exists(x => x.gameObject == collision.gameObject))
         {
             return;
         }
         collisionOthers.Add(collision.gameObject);
-
+        
         Player player = collision.gameObject.GetComponent<Player>();
         if (player != null)
         {
@@ -54,12 +54,24 @@ public class SimpleEnemy : Enemy
             return;
         }
 
-        Bullet bullet = collision.gameObject.GetComponent<Bullet>();
-        if(bullet != null)
+        CheckBullet(collision.gameObject);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        CheckBullet(other.gameObject);
+    }
+
+    private void CheckBullet(GameObject obj)
+    {
+        Bullet bullet = obj.GetComponent<Bullet>();
+        if (bullet != null)
         {
+            ScoreManager.ScoreUp(hitScore);
             hp -= bullet.damage;
-            if(hp < 1)
+            if (hp < 1)
             {
+                ScoreManager.ScoreUp(deathScore);
                 Death();
                 return;
             }

@@ -62,13 +62,20 @@ public class Item : MonoBehaviour
         {
             return;
         }
-        Instantiate(fx[index]).transform.position = transform.position;
-        ItemReset();
+
+        if (other.gameObject.tag == "Player")
+        {
+            Instantiate(fx[index]).transform.position = transform.position;
+            ItemReset();
+        }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        ItemReset();
+        if (other.gameObject.tag == "Wall")
+        {
+            ItemReset();
+        }
     }
 
     private void ItemReset()
