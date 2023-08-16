@@ -43,6 +43,7 @@ public class PlayerModel2 : PlayerModel
                 if(shootValue >= shootInterval)
                 {
                     shootValue = 0;
+                    bar.fillAmount = 0;
                     SimpleBulletMake(2, 0);
                 }
                 break;

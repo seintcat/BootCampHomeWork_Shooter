@@ -35,5 +35,6 @@ public class BeforePlayUI : MonoBehaviour
             obj.SetActive(true);
         }
         gameObject.SetActive(false);
+        player.PlayerStart();
     }
 }

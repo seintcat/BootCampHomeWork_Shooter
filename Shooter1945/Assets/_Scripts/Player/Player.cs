@@ -30,17 +30,21 @@ public class Player : GameActor
     // Start is called before the first frame update
     void Start()
     {
-        instance = this;
-        HPUI.hpNow = 1;
-        maxHp = hp;
-        animator = GetComponentInChildren<Animator>();
-        base.Init();
     }
 
     // Update is called once per frame
     void Update()
     {
 
+    }
+
+    public void PlayerStart()
+    {
+        instance = this;
+        HPUI.hpNow = 1;
+        maxHp = hp;
+        animator = GetComponentInChildren<Animator>();
+        base.Init();
     }
 
     private void FixedUpdate()
@@ -151,7 +155,11 @@ public class Player : GameActor
     private void PlayerDeath()
     {
         FxHandler.playerDeath = true;
-        StopCoroutine(fire);
+        if(fire != null)
+        {
+            StopCoroutine(fire);
+            fire = null;
+        }
         EnemySpawner.PlayerDeath();
         Enemy.PlayerDeath();
         Bullet.PlayerDeath();
