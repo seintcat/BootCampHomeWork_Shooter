@@ -103,7 +103,7 @@ MonoBehaviour:
   startSound: {fileID: 8300000, guid: a1a3178f0271f49c5a12bc0c347e6e52, type: 3}
   particle: {fileID: 2965222256817593503, guid: d4eabfe0b42f0ee4b911b1111a050568,
     type: 3}
-  trail: {fileID: 0}
+  trail: {fileID: 5677986408459961139}
   _collider: {fileID: 3376421003146912881}
   animator: {fileID: 6939555794201457073}
 --- !u!95 &6939555794201457073
@@ -255,7 +255,7 @@ TrailRenderer:
     numCapVertices: 0
     alignment: 0
     textureMode: 1
-    textureScale: {x: 1, y: 0.24}
+    textureScale: {x: 1, y: 0.4}
     shadowBias: 0.5
     generateLightingData: 0
   m_MinVertexDistance: 0.1

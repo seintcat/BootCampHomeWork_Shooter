@@ -16,8 +16,6 @@ public class Player : GameActor
     [SerializeField]
     private float shieldTime = 10f;
     [SerializeField]
-    private PlayerModel model;
-    [SerializeField]
     private Image hpImage;
     [SerializeField]
     GameObject shield;
@@ -26,6 +24,8 @@ public class Player : GameActor
 
     private int maxHp;
     private IEnumerator shieldOff;
+
+    public PlayerModel model;
 
     // Start is called before the first frame update
     void Start()

@@ -30,6 +30,10 @@ public class PlayerLightningBullet : Bullet
     // Start is called before the first frame update
     void Start()
     {
+        if (startSound != null)
+        {
+            AudioManager.PlayOneShot(startSound);
+        }
         enemyList = FindObjectsByType<Enemy>(FindObjectsSortMode.None);
         if (enemyList == null || enemyList.Length < 1)
         {
