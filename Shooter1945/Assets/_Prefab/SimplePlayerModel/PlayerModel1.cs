@@ -18,7 +18,6 @@ public class PlayerModel1 : PlayerModel
 
     public override void Shoot()
     {
-        Transform _bullet;
         switch (level)
         {
             case 0:
@@ -26,10 +25,8 @@ public class PlayerModel1 : PlayerModel
                 break; 
             case 1:
                 SimpleBulletMake(1, 0);
-                _bullet = SimpleBulletMake(0, 1);
-                _bullet.Rotate(new Vector3(0, -45, 0), Space.Self);
-                _bullet = SimpleBulletMake(0, 2);
-                _bullet.Rotate(new Vector3(0, 45, 0), Space.Self);
+                SimpleBulletMake(0, 1);
+                SimpleBulletMake(0, 2);
                 break;
             case 2:
                 SimpleBulletMake(2, 0);

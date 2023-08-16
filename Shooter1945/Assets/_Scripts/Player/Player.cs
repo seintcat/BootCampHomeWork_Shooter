@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Mathematics;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -22,7 +23,7 @@ public class Player : GameActor
     [SerializeField]
     private Animator shieldAnimator;
 
-    private int maxHp;
+    private int hpNow;
     private IEnumerator shieldOff;
 
     public PlayerModel model;
@@ -40,9 +41,10 @@ public class Player : GameActor
 
     public void PlayerStart()
     {
+        rb.velocity = Vector3.zero;
         instance = this;
         HPUI.hpNow = 1;
-        maxHp = hp;
+        hpNow = hp;
         animator = GetComponentInChildren<Animator>();
         base.Init();
     }
@@ -61,6 +63,10 @@ public class Player : GameActor
             instance.fire = null;
         }
 
+        if (!instance.enabled)
+        {
+            return;
+        }
         instance.fire = instance.Fire();
         instance.StartCoroutine(instance.fire);
     }
@@ -87,7 +93,7 @@ public class Player : GameActor
             switch (other.GetComponent<Item>().index)
             {
                 case 0:
-                    hp = maxHp;
+                    hpNow = hp;
                     SetHP();
                     break;
                 case 1:
@@ -111,7 +117,7 @@ public class Player : GameActor
             return;
         }
 
-        hp = 0;
+        hpNow = 0;
         SetHP();
         PlayerDeath();
         WallOutDestroyer.WallTriggerExit(other, gameObject, deadFx);
@@ -129,18 +135,18 @@ public class Player : GameActor
         Enemy enemy = collision.gameObject.GetComponent<Enemy>();
         if (enemy != null && shieldOff == null)
         {
-            hp -= enemy.collisionDamage;
+            hpNow -= enemy.collisionDamage;
         }
 
         Bullet bullet = collision.gameObject.GetComponent<Bullet>();
         if (bullet != null && shieldOff == null)
         {
-            hp -= bullet.damage;
+            hpNow -= bullet.damage;
         }
 
         SetHP();
 
-        if (hp < 1)
+        if (hpNow < 1)
         {
             PlayerDeath();
             Death();
@@ -149,21 +155,23 @@ public class Player : GameActor
 
     private void SetHP()
     { 
-        HPUI.hpNow = Mathf.Clamp( ((float)hp / maxHp), 0f, 1f);
+        HPUI.hpNow = Mathf.Clamp( ((float)hpNow / hp), 0f, 1f);
     }
 
     private void PlayerDeath()
     {
         FxHandler.playerDeath = true;
-        if(fire != null)
+        if (fire != null)
         {
             StopCoroutine(fire);
             fire = null;
         }
+        ScoreManager.PlayerDeath();
         EnemySpawner.PlayerDeath();
         Enemy.PlayerDeath();
         Bullet.PlayerDeath();
         Item.PlayerDeath();
+        GameOverUI.PlayerDeath();
     }
 
     private IEnumerator ShieldOff()

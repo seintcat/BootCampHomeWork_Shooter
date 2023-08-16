@@ -21,17 +21,25 @@ public class Item : MonoBehaviour
     private Vector3 spawnPos;
     private IEnumerator itemFall;
 
+    private static Item instance;
+
     public static void PlayerDeath()
     {
-        Item item = FindObjectOfType<Item>();
-        Instantiate(item.fx[item.index]).transform.position = item.transform.position;
-        Destroy(item.gameObject);
+        Instantiate(instance.fx[instance.index]).transform.position = instance.transform.position;
+        instance.ItemReset();
+        if(instance.itemFall != null)
+        {
+            instance.StopCoroutine(instance.itemFall);
+            instance.itemFall = null;
+        }
+        instance.gameObject.SetActive(false);
     }
 
     // Start is called before the first frame update
     void Start()
     {
         spawnPos = transform.position;
+        instance = this;
         ItemStarting();
     }
 
@@ -78,7 +86,7 @@ public class Item : MonoBehaviour
         }
     }
 
-    private void ItemReset()
+    public void ItemReset()
     {
         if (!model[index].activeSelf)
         {
@@ -92,7 +100,7 @@ public class Item : MonoBehaviour
 
     private void ItemStarting()
     {
-        if(itemFall != null)
+        if (itemFall != null)
         {
             return;
         }

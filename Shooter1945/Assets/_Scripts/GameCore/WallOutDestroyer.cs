@@ -13,7 +13,7 @@ public class WallOutDestroyer : MonoBehaviour
                 Instantiate(fx).transform.position = _gameObject.transform.position;
             }
 
-            Destroy(_gameObject);
+            _gameObject.SetActive(false);
         }
     }
 }

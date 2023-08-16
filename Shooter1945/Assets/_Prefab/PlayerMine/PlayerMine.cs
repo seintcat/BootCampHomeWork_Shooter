@@ -5,6 +5,8 @@ using UnityEngine;
 public class PlayerMine : Bullet
 {
     [SerializeField]
+    private GameObject parent;
+    [SerializeField]
     private Collider _collider;
     [SerializeField]
     private Animator _animator;
@@ -26,7 +28,8 @@ public class PlayerMine : Bullet
     {
         _collider.isTrigger = true;
         _animator.Play("Fire");
-        Destroy(gameObject, 0.5f);
+
+        Invoke("SetActiveFalse", 0.5f);
     }
 
     public void Fire()
@@ -40,7 +43,17 @@ public class PlayerMine : Bullet
         {
             _collider.isTrigger = true;
             _animator.Play("Fire");
-            Destroy(gameObject, 0.5f);
+            Invoke("SetActiveFalse", 0.5f);
         }
+    }
+
+    private void OnDisable()
+    {
+        SetActiveFalse();
+    }
+
+    private void SetActiveFalse()
+    {
+        parent.gameObject.SetActive(false);
     }
 }

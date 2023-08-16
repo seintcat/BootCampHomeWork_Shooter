@@ -23,13 +23,18 @@ public class PlayerLightningBullet : Bullet
 
     private void Awake()
     {
-        trail.emitting = true;
         particles = new List<Transform>();
     }
 
     // Start is called before the first frame update
     void Start()
     {
+
+    }
+
+    public override void Init()
+    {
+        trail.emitting = true;
         if (startSound != null)
         {
             AudioManager.PlayOneShot(startSound);
@@ -39,6 +44,14 @@ public class PlayerLightningBullet : Bullet
         {
             EndSelf();
             return;
+        }
+
+        if(particles != null && particles.Count > 0)
+        {
+            foreach (Transform t in particles)
+            {
+                Destroy(t.gameObject);
+            }
         }
 
         nextIndex = 0;
@@ -62,7 +75,7 @@ public class PlayerLightningBullet : Bullet
     {
         if (nextIndex < enemyList.Length)
         {
-            if (enemyList[nextIndex] == null || enemyList[nextIndex].dead)
+            if (enemyList[nextIndex] == null || enemyList[nextIndex].dead || !enemyList[nextIndex].gameObject.activeSelf)
             {
                 nextIndex++;
                 NextEnemy();
@@ -81,6 +94,7 @@ public class PlayerLightningBullet : Bullet
             t.transform.SetParent(transform);
         }
         _collider.enabled = false;
+        trail.emitting = false;
         animator.Play("Death");
         Invoke("EndSelf", 1f);
     }

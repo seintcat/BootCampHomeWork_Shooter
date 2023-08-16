@@ -10,10 +10,7 @@ public class PlayerBulletAI : Bullet
     // Start is called before the first frame update
     void Start()
     {
-        rb.angularVelocity = Vector3.up * 10;
-        Invoke("EndSelf", 30f);
-        find = FindNext();
-        StartCoroutine(find);
+
     }
 
     // Update is called once per frame
@@ -22,11 +19,30 @@ public class PlayerBulletAI : Bullet
         
     }
 
+    public override void Init()
+    {
+        rb.angularVelocity = Vector3.up * 10;
+        Invoke("EndSelf", 30f);
+        if(find != null)
+        {
+            StopCoroutine(find);
+            find = null;
+        }
+        find = FindNext();
+        StartCoroutine(find);
+    }
+
     private void FixedUpdate()
     {
         rb.velocity = Vector3.Lerp(Vector3.zero, rb.velocity, 0.95f);
         if(targetNow != null)
         {
+            if(!targetNow.gameObject.activeSelf)
+            {
+                targetNow = null;
+                return;
+            }
+
             rb.velocity += (targetNow.position - transform.position).normalized * 7f;
             if ((targetNow.position - transform.position).magnitude < 1)
             {
@@ -62,7 +78,7 @@ public class PlayerBulletAI : Bullet
             List<Enemy> list = new List<Enemy>();
             foreach (Enemy enemy in enemyList)
             {
-                if (enemy != null && !enemy.dead)
+                if (enemy != null && !enemy.dead && enemy.gameObject.activeSelf)
                 {
                     list.Add(enemy);
                 }

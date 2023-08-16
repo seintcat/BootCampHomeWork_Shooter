@@ -12,29 +12,44 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField]
     private List<GameObject> enemyList;
 
-    private List<IEnumerator> spawners;
+    private static List<IEnumerator> spawners;
+
+    private static EnemySpawner instance;
 
     public static void PlayerDeath()
     {
-        GameObject obj = FindObjectOfType<EnemySpawner>().gameObject;
-        if(obj != null)
+        foreach (IEnumerator job in spawners)
         {
-            Destroy(obj);
+            instance.StopCoroutine(job);
+        }
+        instance.gameObject.SetActive(false);
+    }
+    public void Init()
+    {
+        if(instance == null)
+        {
+            instance = this;
+        }
+
+        if(spawners != null)
+        {
+            spawners.Clear();
+        }
+        spawners = new List<IEnumerator>();
+        foreach (float pos in instance.spawnPos)
+        {
+            spawners.Add(instance.Spawn(pos, instance.spawnTimeMinMax.x, instance.spawnTimeMinMax.y));
+        }
+        foreach (IEnumerator job in spawners)
+        {
+            StartCoroutine(job);
         }
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        spawners = new List<IEnumerator>();
-        foreach (float pos in spawnPos)
-        {
-            spawners.Add(Spawn(pos, spawnTimeMinMax.x, spawnTimeMinMax.y));
-        }
-        foreach (IEnumerator job in spawners)
-        {
-            StartCoroutine(job);
-        }
+
     }
 
     // Update is called once per frame

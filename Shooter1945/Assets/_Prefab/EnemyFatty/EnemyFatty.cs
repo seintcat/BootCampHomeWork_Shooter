@@ -69,9 +69,10 @@ public class EnemyFatty : Enemy
     {
         foreach(Transform pos in firePos)
         {
-            Transform _bullet = Instantiate(bullet).transform;
+            Transform _bullet = Bullet.Pooling(bullet).transform;
             _bullet.position = pos.position;
             _bullet.rotation = pos.rotation;
+            _bullet.GetComponent<Bullet>().Init();
         }
     }
 }

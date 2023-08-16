@@ -35,9 +35,10 @@ public class WatchingEnemy : Enemy
         while (true)
         {
             yield return new WaitForSeconds(Random.Range(fireMinMax.x, fireMinMax.y));
-            Transform _bullet = Instantiate(bullet).transform;
+            Transform _bullet = Bullet.Pooling(bullet).transform;
             _bullet.position = firePos[0].position;
             _bullet.rotation = transform.rotation;
+            _bullet.GetComponent<Bullet>().Init();
         }
     }
 

@@ -28,10 +28,19 @@ public abstract class PlayerModel : MonoBehaviour
 
     protected Transform SimpleBulletMake(int prefIndex, int gunPosIndex)
     {
-        Transform bullet = Instantiate(bullets[prefIndex]).transform;
-        bullet.position = gunPos[gunPosIndex].position;
-        bullet.rotation = gunPos[gunPosIndex].rotation;
-
-        return bullet;
+        Transform trans = Bullet.Pooling(bullets[prefIndex]).transform;
+        trans.position = gunPos[gunPosIndex].position;
+        trans.rotation = gunPos[gunPosIndex].rotation;
+        Bullet bullet = trans.gameObject.GetComponent<Bullet>();
+        if (bullet == null)
+        {
+            bullet = trans.gameObject.GetComponentInChildren<Bullet>();
+        }
+        if (bullet == null)
+        {
+            bullet = trans.gameObject.GetComponentInParent<Bullet>();
+        }
+        bullet.Init();
+        return trans;
     }
 }

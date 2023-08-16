@@ -13,7 +13,7 @@ public class GameActor : MonoBehaviour
     [SerializeField]
     protected Animator animator;
     [SerializeField]
-    private float deathTime = 3;
+    private float deathTime = 1.5f;
 
     protected IEnumerator fire;
     protected List<GameObject> collisionOthers;
@@ -68,8 +68,21 @@ public class GameActor : MonoBehaviour
         }
         enabled = false;
 
-        animator.Play("Death");
+        if(animator != null)
+        {
+            animator.Play("Death");
+        }
         Instantiate(deadFx).transform.position = transform.position;
-        Destroy(gameObject, deathTime);
+
+        SetActiveFalse(this, deathTime);
+    }
+
+    public static void SetActiveFalse(GameActor obj, float deathTime)
+    {
+        obj.Invoke("_SetActiveFalse", deathTime);
+    }
+    private void _SetActiveFalse()
+    {
+        gameObject.SetActive(false);
     }
 }

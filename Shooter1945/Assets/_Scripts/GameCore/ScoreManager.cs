@@ -9,6 +9,11 @@ public class ScoreManager : MonoBehaviour
     private static int scoreValue;
     private static int bestValue;
 
+    public static int lastScore
+    {
+        get { return scoreValue; }
+    }
+
     [SerializeField]
     Animator scoreAnimator;
     [SerializeField]
@@ -16,13 +21,22 @@ public class ScoreManager : MonoBehaviour
     [SerializeField]
     TextMeshProUGUI best;
 
-    private void Awake()
+    public void Init()
     {
-        instance = this;
         scoreValue = 0;
         score.text = "Score : " + scoreValue;
         bestValue = PlayerPrefs.GetInt("Best", 0);
         best.text = "Best : " + bestValue;
+    }
+    public static void PlayerDeath()
+    {
+        instance.gameObject.SetActive(false);
+    }
+
+    private void Awake()
+    {
+        instance = this;
+        Init();
     }
 
     public static void ScoreUp(int scoreIn)

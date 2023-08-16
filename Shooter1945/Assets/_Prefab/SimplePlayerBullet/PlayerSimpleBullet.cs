@@ -4,14 +4,19 @@ using UnityEngine;
 
 public class PlayerSimpleBullet : Bullet
 {
-    // Start is called before the first frame update
-    void Start()
+    public override void Init()
     {
         rb.velocity = transform.forward * 2;
         if (startSound != null)
         {
             AudioManager.PlayOneShot(startSound);
         }
+    }
+
+    // Start is called before the first frame update
+    void Start()
+    {
+
     }
 
     // Update is called once per frame

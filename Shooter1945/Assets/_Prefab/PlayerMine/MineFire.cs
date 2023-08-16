@@ -23,4 +23,9 @@ public class MineFire : MonoBehaviour
     {
         playerMine.Fire();
     }
+
+    private void OnEnable()
+    {
+        playerMine.gameObject.SetActive(true);
+    }
 }

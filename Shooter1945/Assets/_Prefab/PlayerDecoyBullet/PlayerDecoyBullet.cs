@@ -8,6 +8,8 @@ public class PlayerDecoyBullet : Bullet
 {
     [SerializeField]
     private Transform model;
+    [SerializeField]
+    private TrailRenderer trailRenderer;
 
     private IEnumerator raycastCheck;
     private Transform target;
@@ -15,7 +17,18 @@ public class PlayerDecoyBullet : Bullet
     // Start is called before the first frame update
     void Start()
     {
+
+    }
+
+    public override void Init()
+    {
+        trailRenderer.emitting = true;
         target = null;
+        if(raycastCheck != null)
+        {
+            StopCoroutine(raycastCheck);
+            raycastCheck = null;
+        }
         raycastCheck = RayCasting();
         StartCoroutine(raycastCheck);
         rb.velocity = transform.forward * 2;
@@ -31,6 +44,11 @@ public class PlayerDecoyBullet : Bullet
     {
         if(target != null)
         {
+            if (!target.gameObject.activeSelf)
+            {
+                target = null;
+                return;
+            }
             rb.velocity = Vector3.Lerp(Vector3.zero, rb.velocity, 0.96f);
             rb.velocity += (target.position - transform.position).normalized * 3 * Time.fixedDeltaTime;
             transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(target.position - transform.position), Time.fixedDeltaTime);
