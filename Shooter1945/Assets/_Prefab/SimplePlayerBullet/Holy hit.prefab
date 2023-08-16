@@ -9799,7 +9799,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   time: 3
-  audioClip: {fileID: 8300000, guid: b3f4100606bad4634ae89b9e4670bb30, type: 3}
+  audioClip: {fileID: 8300000, guid: a07696dceca78a14284fef5841813c29, type: 3}
 --- !u!1 &3646487531195122515
 GameObject:
   m_ObjectHideFlags: 0

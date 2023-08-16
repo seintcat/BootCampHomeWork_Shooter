@@ -100,7 +100,7 @@ MonoBehaviour:
   damage: 2
   rb: {fileID: 5052597249127597372}
   deadFx: {fileID: 2965222256817593503, guid: 838c86803c1a8124a9986b2d688d9927, type: 3}
-  startSound: {fileID: 8300000, guid: a1a3178f0271f49c5a12bc0c347e6e52, type: 3}
+  startSound: {fileID: 8300000, guid: 732682136abb0534a873be2d59f2a308, type: 3}
   particle: {fileID: 2965222256817593503, guid: d4eabfe0b42f0ee4b911b1111a050568,
     type: 3}
   trail: {fileID: 5677986408459961139}
