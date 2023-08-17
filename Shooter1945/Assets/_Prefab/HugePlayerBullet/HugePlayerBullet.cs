@@ -19,6 +19,7 @@ public class HugePlayerBullet : Bullet
     public override void Init()
     {
         rb.velocity = transform.forward * 10;
+        rb.angularVelocity = Vector3.zero;
     }
 
     private void OnTriggerExit(Collider other)

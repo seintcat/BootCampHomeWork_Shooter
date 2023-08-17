@@ -24,7 +24,7 @@ public class GameActor : MonoBehaviour
     {
         get 
         { 
-            return maxHp < 1; 
+            return hpNow < 1; 
         }
     }
 

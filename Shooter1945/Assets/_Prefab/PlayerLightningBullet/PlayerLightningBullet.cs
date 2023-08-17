@@ -74,6 +74,9 @@ public class PlayerLightningBullet : Bullet
         particles.Add(Instantiate(particle).transform);
         particles[particles.Count - 1].transform.position = transform.position;
         Invoke("NextEnemy", 0.2f);
+
+        enumerator = EndThis(1f);
+        StartCoroutine(enumerator);
     }
 
     // Update is called once per frame
@@ -103,23 +106,18 @@ public class PlayerLightningBullet : Bullet
             nextIndex++;
             return;
         }
+    }
 
-        // Death
-        _collider.enabled = false;
-        trail.emitting = false;
-        this.StopAllCoroutines();
+    private IEnumerator EndThis(float time)
+    {
         if (gameObject.activeSelf)
         {
             animator.Play("Death");
         }
 
-        enumerator = EndThis(1f);
-        StartCoroutine(enumerator);
-    }
-
-    private IEnumerator EndThis(float time)
-    {
         yield return new WaitForSeconds(time);
+        trail.emitting = false;
+        _collider.enabled = false;
         if (particles != null && particles.Count > 0)
         {
             foreach (Transform t in particles)
