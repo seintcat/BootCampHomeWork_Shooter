@@ -61,6 +61,7 @@ public class BeforePlayUI : MonoBehaviour
         }
         spawner.Init();
         item.ItemReset();
+        item.Init();
         player.PlayerStart();
         inputManager.Init();
     }

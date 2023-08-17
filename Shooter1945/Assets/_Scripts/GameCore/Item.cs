@@ -38,15 +38,19 @@ public class Item : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        spawnPos = transform.position;
-        instance = this;
-        ItemStarting();
     }
 
     // Update is called once per frame
     void Update()
     {
         
+    }
+
+    public void Init()
+    {
+        spawnPos = transform.position;
+        instance = this;
+        ItemStarting();
     }
 
     private IEnumerator ItemFall()

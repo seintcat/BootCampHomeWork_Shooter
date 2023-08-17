@@ -44,7 +44,8 @@ public class Player : GameActor
         rb.velocity = Vector3.zero;
         instance = this;
         HPUI.hpNow = 1;
-        animator = GetComponentInChildren<Animator>();
+        animator = null;
+        animator = model.GetComponentInChildren<Animator>();
         base.Init();
     }
 
