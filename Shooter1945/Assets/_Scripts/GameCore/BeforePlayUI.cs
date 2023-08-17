@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEditor.Progress;
 
 public class BeforePlayUI : MonoBehaviour
 {
@@ -18,6 +17,8 @@ public class BeforePlayUI : MonoBehaviour
     private Item item;
     [SerializeField]
     private GameObject starting;
+    [SerializeField]
+    private InputManager inputManager;
 
     public static int modelIndex;
 
@@ -62,5 +63,6 @@ public class BeforePlayUI : MonoBehaviour
         item.ItemReset();
         player.enabled = true;
         player.PlayerStart();
+        inputManager.Init();
     }
 }

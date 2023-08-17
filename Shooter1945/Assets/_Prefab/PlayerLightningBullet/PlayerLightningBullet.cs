@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics;
 using Unity.VisualScripting;
 using UnityEngine;
 using static UnityEngine.ParticleSystem;
@@ -17,13 +16,15 @@ public class PlayerLightningBullet : Bullet
     [SerializeField]
     Animator animator;
 
-    private Enemy[] enemyList;
+    private List<Enemy> enemyList;
     private List<Transform> particles;
     private int nextIndex;
+    private IEnumerator enumerator;
 
     private void Awake()
     {
         particles = new List<Transform>();
+        enemyList = new List<Enemy>();
     }
 
     // Start is called before the first frame update
@@ -34,24 +35,39 @@ public class PlayerLightningBullet : Bullet
 
     public override void Init()
     {
+        if (enumerator != null)
+        {
+            StopCoroutine(enumerator);
+            enumerator = null;
+        }
+        _collider.enabled = true;
         trail.emitting = true;
+        if(!animator.enabled )
+        {
+            animator.enabled = true;
+        }
+        animator.Play("Idle");
         if (startSound != null)
         {
             AudioManager.PlayOneShot(startSound);
         }
-        enemyList = FindObjectsByType<Enemy>(FindObjectsSortMode.None);
-        if (enemyList == null || enemyList.Length < 1)
+        if(enemyList != null)
         {
+            enemyList.Clear();
+        }
+        Enemy[] enemyArray = FindObjectsByType<Enemy>(FindObjectsSortMode.None);
+        foreach (Enemy enemy in enemyArray)
+        {
+            if (enemy.gameObject.activeSelf && !enemy.dead)
+            {
+                enemyList.Add(enemy);
+            }
+        }
+        if (enemyList == null || enemyList.Count < 1)
+        {
+            this.StopAllCoroutines();
             EndSelf();
             return;
-        }
-
-        if(particles != null && particles.Count > 0)
-        {
-            foreach (Transform t in particles)
-            {
-                Destroy(t.gameObject);
-            }
         }
 
         nextIndex = 0;
@@ -73,7 +89,7 @@ public class PlayerLightningBullet : Bullet
 
     private void NextEnemy()
     {
-        if (nextIndex < enemyList.Length)
+        if (nextIndex < enemyList.Count)
         {
             if (enemyList[nextIndex] == null || enemyList[nextIndex].dead || !enemyList[nextIndex].gameObject.activeSelf)
             {
@@ -89,13 +105,34 @@ public class PlayerLightningBullet : Bullet
         }
 
         // Death
-        foreach(Transform t in particles)
-        {
-            t.transform.SetParent(transform);
-        }
         _collider.enabled = false;
         trail.emitting = false;
-        animator.Play("Death");
-        Invoke("EndSelf", 1f);
+        this.StopAllCoroutines();
+        if (gameObject.activeSelf)
+        {
+            animator.Play("Death");
+        }
+
+        enumerator = EndThis(1f);
+        StartCoroutine(enumerator);
+    }
+
+    private IEnumerator EndThis(float time)
+    {
+        yield return new WaitForSeconds(time);
+        if (particles != null && particles.Count > 0)
+        {
+            foreach (Transform t in particles)
+            {
+                Destroy(t.gameObject);
+            }
+            particles.Clear();
+        }
+        EndSelf();
+    }
+
+    private void OnDisable()
+    {
+
     }
 }

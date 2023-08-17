@@ -11,17 +11,31 @@ public class PlayerMine : Bullet
     [SerializeField]
     private Animator _animator;
 
+    private IEnumerator enumerator;
+
     // Start is called before the first frame update
     void Start()
     {
-        rb.angularVelocity = new Vector3(Random.Range(-5f, 5f), Random.Range(-5f, 5f), Random.Range(-5f, 5f));
-        Invoke("TimeOver", 5f);
+
     }
 
     // Update is called once per frame
     void Update()
     {
 
+    }
+
+    public override void Init()
+    {
+        if(enumerator != null)
+        {
+            StopCoroutine(enumerator);
+            enumerator = null;
+        }
+        _collider.isTrigger = false;
+        rb.angularVelocity = new Vector3(Random.Range(-5f, 5f), Random.Range(-5f, 5f), Random.Range(-5f, 5f));
+        enumerator = TimeOver(5f);
+        StartCoroutine(enumerator);
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -37,8 +51,10 @@ public class PlayerMine : Bullet
         Instantiate(deadFx).transform.position = transform.position;
     }
 
-    public void TimeOver()
+    public IEnumerator TimeOver(float time)
     {
+        yield return new WaitForSeconds(time);
+
         if(!_collider.isTrigger)
         {
             _collider.isTrigger = true;
@@ -54,6 +70,9 @@ public class PlayerMine : Bullet
 
     private void SetActiveFalse()
     {
-        parent.gameObject.SetActive(false);
+        if (parent.gameObject.activeSelf)
+        {
+            parent.gameObject.SetActive(false);
+        }
     }
 }

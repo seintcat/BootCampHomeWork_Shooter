@@ -41,6 +41,7 @@ public class Player : GameActor
 
     public void PlayerStart()
     {
+        shield.SetActive(false);
         rb.velocity = Vector3.zero;
         instance = this;
         HPUI.hpNow = 1;

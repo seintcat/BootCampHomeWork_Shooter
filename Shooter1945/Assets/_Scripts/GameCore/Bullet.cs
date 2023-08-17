@@ -44,10 +44,14 @@ public class Bullet : MonoBehaviour
     protected void EndSelf()
     {
         Instantiate(deadFx).transform.position = transform.position;
-        rb.velocity = Vector3.zero;
+        if(!rb.isKinematic)
+        {
+            rb.velocity = Vector3.zero;
+        }
         TrailRenderer trail = gameObject.GetComponentInChildren<TrailRenderer>();
         if(trail != null)
         {
+            trail.Clear();
             trail.emitting = false;
         }
         gameObject.SetActive(false);

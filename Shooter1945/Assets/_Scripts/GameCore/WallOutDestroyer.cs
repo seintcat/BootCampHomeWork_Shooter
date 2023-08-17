@@ -13,6 +13,13 @@ public class WallOutDestroyer : MonoBehaviour
                 Instantiate(fx).transform.position = _gameObject.transform.position;
             }
 
+            TrailRenderer trail = _gameObject.GetComponentInChildren<TrailRenderer>();
+            if (trail != null)
+            {
+                trail.Clear();
+                trail.emitting = false;
+            }
+
             _gameObject.SetActive(false);
         }
     }

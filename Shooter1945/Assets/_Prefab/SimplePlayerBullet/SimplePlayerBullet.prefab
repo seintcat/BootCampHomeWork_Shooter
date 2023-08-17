@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3232650292986017315}
   - component: {fileID: 9153213822647058999}
   - component: {fileID: 7498263274982455752}
-  - component: {fileID: 667595909277195984}
+  - component: {fileID: 1540990804632386702}
   m_Layer: 11
   m_Name: SimplePlayerBullet
   m_TagString: Untagged
@@ -134,7 +134,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 120
   m_CollisionDetection: 0
---- !u!114 &667595909277195984
+--- !u!114 &1540990804632386702
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
