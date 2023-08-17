@@ -5,7 +5,7 @@ using UnityEngine;
 public class GameActor : MonoBehaviour
 {
     [SerializeField]
-    protected int hp = 3;
+    protected int maxHp = 3;
     [SerializeField]
     protected Rigidbody rb;
     [SerializeField]
@@ -17,21 +17,29 @@ public class GameActor : MonoBehaviour
 
     protected IEnumerator fire;
     protected List<GameObject> collisionOthers;
+    protected int hpNow;
     private IEnumerator immortalTime;
 
     public bool dead
     {
         get 
         { 
-            return hp < 1; 
+            return maxHp < 1; 
         }
     }
 
     protected virtual void Init()
     {
+        foreach (Collider col in GetComponentsInChildren<Collider>())
+        {
+            col.enabled = true;
+        }
+        enabled = true;
+        hpNow = maxHp;
         collisionOthers = new List<GameObject>();
         immortalTime = ImmortalTime();
         StartCoroutine(immortalTime);
+        rb.angularVelocity = Vector3.zero;
     }
 
     // Start is called before the first frame update

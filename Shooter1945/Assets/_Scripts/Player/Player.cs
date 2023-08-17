@@ -23,7 +23,6 @@ public class Player : GameActor
     [SerializeField]
     private Animator shieldAnimator;
 
-    private int hpNow;
     private IEnumerator shieldOff;
 
     public PlayerModel model;
@@ -45,7 +44,6 @@ public class Player : GameActor
         rb.velocity = Vector3.zero;
         instance = this;
         HPUI.hpNow = 1;
-        hpNow = hp;
         animator = GetComponentInChildren<Animator>();
         base.Init();
     }
@@ -94,7 +92,7 @@ public class Player : GameActor
             switch (other.GetComponent<Item>().index)
             {
                 case 0:
-                    hpNow = hp;
+                    hpNow = maxHp;
                     SetHP();
                     break;
                 case 1:
@@ -156,7 +154,7 @@ public class Player : GameActor
 
     private void SetHP()
     { 
-        HPUI.hpNow = Mathf.Clamp( ((float)hpNow / hp), 0f, 1f);
+        HPUI.hpNow = Mathf.Clamp( ((float)hpNow / maxHp), 0f, 1f);
     }
 
     private void PlayerDeath()

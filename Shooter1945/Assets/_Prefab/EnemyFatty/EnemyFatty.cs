@@ -7,9 +7,6 @@ public class EnemyFatty : Enemy
     // Start is called before the first frame update
     void Start()
     {
-        Init();
-        transform.rotation = Quaternion.LookRotation(Vector3.down, -Vector3.forward);
-        rb.velocity = Vector3.down * 1;
     }
 
     // Update is called once per frame
@@ -21,6 +18,13 @@ public class EnemyFatty : Enemy
     private void FixedUpdate()
     {
 
+    }
+
+    public override void EnemyInit()
+    {
+        base.EnemyInit();
+        transform.rotation = Quaternion.LookRotation(Vector3.down, -Vector3.forward);
+        rb.velocity = Vector3.down * 1;
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -53,8 +57,8 @@ public class EnemyFatty : Enemy
         if (otherBullet != null)
         {
             ScoreManager.ScoreUp(hitScore);
-            hp -= otherBullet.damage;
-            if (hp < 1)
+            hpNow -= otherBullet.damage;
+            if (hpNow < 1)
             {
                 MakeFragment();
                 Death();
@@ -69,7 +73,7 @@ public class EnemyFatty : Enemy
     {
         foreach(Transform pos in firePos)
         {
-            Transform _bullet = Bullet.Pooling(bullet).transform;
+            Transform _bullet = ObjectPoolingManager.Pooling(bullet).transform;
             _bullet.position = pos.position;
             _bullet.rotation = pos.rotation;
             _bullet.GetComponent<Bullet>().Init();

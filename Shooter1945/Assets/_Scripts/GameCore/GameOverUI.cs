@@ -51,6 +51,6 @@ public class GameOverUI : MonoBehaviour
 
     public void GameOff()
     {
-
+        Application.Quit();
     }
 }

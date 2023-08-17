@@ -63,10 +63,11 @@ public class EnemySpawner : MonoBehaviour
         while (true)
         {
             yield return new WaitForSeconds(Random.Range((float)minTime, (float)maxTime));
-            GameObject enemy = Instantiate(enemyList[Random.Range(0, enemyList.Count)]);
+            GameObject enemy = ObjectPoolingManager.Pooling(enemyList[Random.Range(0, enemyList.Count)]);
             Vector3 pos =  transform.position;
             pos.x += offset;
             enemy.transform.position = pos;
+            enemy.GetComponent<Enemy>().EnemyInit();
         }
     }
 }

@@ -19668,6 +19668,6 @@ MonoBehaviour:
   rb: {fileID: 9199179969123371586}
   deadFx: {fileID: 358637981425055526, guid: 4802678b37eb11f4ab33c76074973e07, type: 3}
   startSound: {fileID: 0}
-  parent: {fileID: 1041803199959140}
+  parent: {fileID: 8711402951097370737}
   _collider: {fileID: 6347233207932117576}
   _animator: {fileID: 1303040595001991721}

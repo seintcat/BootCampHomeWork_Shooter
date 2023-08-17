@@ -6,6 +6,7 @@ public class PlayerBulletAI : Bullet
 {
     private Transform targetNow;
     private IEnumerator find;
+    private IEnumerator endTimer;
 
     // Start is called before the first frame update
     void Start()
@@ -22,8 +23,14 @@ public class PlayerBulletAI : Bullet
     public override void Init()
     {
         rb.angularVelocity = Vector3.up * 10;
-        Invoke("EndSelf", 30f);
-        if(find != null)
+        if(endTimer != null)
+        {
+            StopCoroutine(endTimer);
+            endTimer = null;
+        }
+        endTimer = EndTimer();
+        StartCoroutine(endTimer);
+        if (find != null)
         {
             StopCoroutine(find);
             find = null;
@@ -90,5 +97,11 @@ public class PlayerBulletAI : Bullet
             }
             targetNow = list[Random.Range(0, list.Count)].transform;
         }
+    }
+
+    private IEnumerator EndTimer()
+    {
+        yield return new WaitForSeconds(30f);
+        EndSelf();
     }
 }

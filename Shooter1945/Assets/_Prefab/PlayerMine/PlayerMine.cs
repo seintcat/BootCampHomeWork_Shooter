@@ -5,13 +5,13 @@ using UnityEngine;
 public class PlayerMine : Bullet
 {
     [SerializeField]
-    private GameObject parent;
+    private MineFire parent;
     [SerializeField]
     private Collider _collider;
     [SerializeField]
     private Animator _animator;
 
-    private IEnumerator enumerator;
+    private IEnumerator timeOver;
 
     // Start is called before the first frame update
     void Start()
@@ -27,22 +27,21 @@ public class PlayerMine : Bullet
 
     public override void Init()
     {
-        if(enumerator != null)
+        if(timeOver != null)
         {
-            StopCoroutine(enumerator);
-            enumerator = null;
+            StopCoroutine(timeOver);
+            timeOver = null;
         }
         _collider.isTrigger = false;
         rb.angularVelocity = new Vector3(Random.Range(-5f, 5f), Random.Range(-5f, 5f), Random.Range(-5f, 5f));
-        enumerator = TimeOver(5f);
-        StartCoroutine(enumerator);
+        timeOver = TimeOver(5f);
+        StartCoroutine(timeOver);
     }
 
     private void OnCollisionEnter(Collision collision)
     {
         _collider.isTrigger = true;
         _animator.Play("Fire");
-
         Invoke("SetActiveFalse", 0.5f);
     }
 
@@ -70,9 +69,6 @@ public class PlayerMine : Bullet
 
     private void SetActiveFalse()
     {
-        if (parent.gameObject.activeSelf)
-        {
-            parent.gameObject.SetActive(false);
-        }
+        parent.SetActiveFalse();
     }
 }

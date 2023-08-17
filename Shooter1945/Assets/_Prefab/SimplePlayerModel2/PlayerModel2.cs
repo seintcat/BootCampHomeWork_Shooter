@@ -34,18 +34,19 @@ public class PlayerModel2 : PlayerModel
                 SimpleBulletMake(0, 0);
                 break;
             case 1:
-                SimpleBulletMake(1, 0);
-                break;
-            case 2:
                 canvas.SetActive(true);
                 shootValue++;
                 bar.fillAmount = (float)shootValue / shootInterval;
-                if(shootValue >= shootInterval)
+                if (shootValue >= shootInterval)
                 {
                     shootValue = 0;
                     bar.fillAmount = 0;
                     SimpleBulletMake(2, 0);
                 }
+                break;
+            case 2:
+                canvas.SetActive(false);
+                SimpleBulletMake(1, 0);
                 break;
             default:
                 level--;

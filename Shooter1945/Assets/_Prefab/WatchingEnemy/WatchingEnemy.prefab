@@ -97,7 +97,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d0e2a4198b4c124e9e67ac210a7576f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hp: 2
+  maxHp: 2
   rb: {fileID: 6282554028621099882}
   deadFx: {fileID: 4535006216103734310, guid: 49b71df8aa6c0fc4cb2630a32e9eae6e, type: 3}
   animator: {fileID: 2199504407875043442}

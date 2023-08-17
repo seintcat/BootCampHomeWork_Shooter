@@ -12,11 +12,6 @@ public class WatchingEnemy : Enemy
     // Start is called before the first frame update
     void Start()
     {
-        fire = Fire();
-        Init();
-        transform.rotation = Quaternion.LookRotation(Vector3.down, -Vector3.forward);
-        rb.velocity = Vector3.down * 1;
-        playerPos = Player.instance.transform;
     }
 
     // Update is called once per frame
@@ -30,12 +25,21 @@ public class WatchingEnemy : Enemy
 
     }
 
+    public override void EnemyInit()
+    {
+        fire = Fire();
+        base.EnemyInit();
+        transform.rotation = Quaternion.LookRotation(Vector3.down, -Vector3.forward);
+        rb.velocity = Vector3.down * 1;
+        playerPos = Player.instance.transform;
+    }
+
     private IEnumerator Fire()
     {
         while (true)
         {
             yield return new WaitForSeconds(Random.Range(fireMinMax.x, fireMinMax.y));
-            Transform _bullet = Bullet.Pooling(bullet).transform;
+            Transform _bullet = ObjectPoolingManager.Pooling(bullet).transform;
             _bullet.position = firePos[0].position;
             _bullet.rotation = transform.rotation;
             _bullet.GetComponent<Bullet>().Init();
@@ -72,8 +76,8 @@ public class WatchingEnemy : Enemy
         if (bullet != null)
         {
             ScoreManager.ScoreUp(hitScore);
-            hp -= bullet.damage;
-            if (hp < 1)
+            hpNow -= bullet.damage;
+            if (hpNow < 1)
             {
                 ScoreManager.ScoreUp(deathScore);
                 Death();

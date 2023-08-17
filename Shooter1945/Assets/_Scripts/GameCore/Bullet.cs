@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    public static Dictionary<GameObject, List<GameObject>> bulletPool = new Dictionary<GameObject, List<GameObject>>();
-
     public int damage = 1;
 
     [SerializeField]
@@ -47,6 +45,7 @@ public class Bullet : MonoBehaviour
         if(!rb.isKinematic)
         {
             rb.velocity = Vector3.zero;
+            rb.angularVelocity = Vector3.zero;
         }
         TrailRenderer trail = gameObject.GetComponentInChildren<TrailRenderer>();
         if(trail != null)
@@ -55,33 +54,5 @@ public class Bullet : MonoBehaviour
             trail.emitting = false;
         }
         gameObject.SetActive(false);
-    }
-
-    public static GameObject Pooling(GameObject prefab)
-    {
-        if (!bulletPool.ContainsKey(prefab))
-        {
-            bulletPool.Add(prefab, new List<GameObject>());
-        }
-
-        GameObject instance;
-        if (bulletPool[prefab].Count < 1)
-        {
-            instance = Instantiate(prefab);
-            bulletPool[prefab].Add(instance);
-            return instance;
-        }
-        foreach (GameObject obj in bulletPool[prefab])
-        {
-            if(!obj.activeSelf)
-            {
-                obj.SetActive(true);
-                return obj;
-            }
-        }
-
-        instance = Instantiate(prefab);
-        bulletPool[prefab].Add(instance);
-        return instance;
     }
 }

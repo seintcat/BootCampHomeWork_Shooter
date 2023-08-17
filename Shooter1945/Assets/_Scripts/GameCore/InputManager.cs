@@ -8,7 +8,18 @@ public class InputManager : MonoBehaviour
     public static bool shoot = false;
 
     [SerializeField]
-    private bool useJoystick = false;
+    private bool useJoystick
+    {
+        get
+        {
+#if UNITY_STANDALONE_WIN
+            return false;
+#endif
+#if UNITY_ANDROID
+            return true;
+#endif
+        }
+    }
     [SerializeField]
     private Joystick joystick;
     [SerializeField]
@@ -45,8 +56,11 @@ public class InputManager : MonoBehaviour
 
     public void Init()
     {
-        handler.gameObject.SetActive(true); 
-        handler.Init();
+        if (useJoystick)
+        {
+            handler.gameObject.SetActive(true);
+            handler.Init();
+        }
     }
 
     public void ButtonDown()

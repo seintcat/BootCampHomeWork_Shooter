@@ -9,6 +9,8 @@ public class JoystickHandler : MonoBehaviour
     private RectTransform wrapper;
     [SerializeField]
     private RectTransform background;
+    [SerializeField]
+    private RectTransform handle;
 
     // Start is called before the first frame update
     void Start()
@@ -24,14 +26,24 @@ public class JoystickHandler : MonoBehaviour
 
     public void Init()
     {
-        background.anchorMin = Vector2.zero;
-        background.anchorMax = new Vector2(1, 1);
-        background.offsetMin = Vector2.zero;
-        background.offsetMax = Vector2.zero;
-
+        SizeResetByAnchor(background);
         background.anchorMin = Vector2.zero;
         background.anchorMax = Vector2.zero;
         background.offsetMin = Vector2.zero;
         background.offsetMax = new Vector2(wrapper.rect.width, wrapper.rect.height);
+
+        SizeResetByAnchor(handle);
+        handle.anchorMin = Vector2.zero;
+        handle.anchorMax = Vector2.zero;
+        handle.offsetMin = Vector2.zero;
+        handle.offsetMax = new Vector2(wrapper.rect.width / 2, wrapper.rect.height / 2);
+    }
+
+    private void SizeResetByAnchor(RectTransform rect)
+    {
+        rect.anchorMin = Vector2.zero;
+        rect.anchorMax = new Vector2(1, 1);
+        rect.offsetMin = Vector2.zero;
+        rect.offsetMax = Vector2.zero;
     }
 }

@@ -28,7 +28,7 @@ public abstract class PlayerModel : MonoBehaviour
 
     protected Transform SimpleBulletMake(int prefIndex, int gunPosIndex)
     {
-        Transform trans = Bullet.Pooling(bullets[prefIndex]).transform;
+        Transform trans = ObjectPoolingManager.Pooling(bullets[prefIndex]).transform;
         trans.position = gunPos[gunPosIndex].position;
         trans.rotation = gunPos[gunPosIndex].rotation;
         Bullet bullet = trans.gameObject.GetComponent<Bullet>();

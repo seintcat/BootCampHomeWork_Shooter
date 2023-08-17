@@ -25,13 +25,13 @@ public abstract class Enemy : GameActor
         }
     }
 
-    protected override void Init()
+    public virtual void EnemyInit()
     {
         if (fire != null)
         {
             StartCoroutine(fire);
         }
-        base.Init();
+        Init();
     }
 
     // Start is called before the first frame update
